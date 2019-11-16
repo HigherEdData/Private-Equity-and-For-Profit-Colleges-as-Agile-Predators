@@ -1,31 +1,7 @@
 
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
-
-**Set your user name for global macro
-global name "Charlie"
-est clear
-
-cd "/Users/Charlie/Google Drive/Lincoln Project/IPEDS Disaggregated/Data"
-
-use  "IPEDS predators prepped 20180217.dta", clear
-
-keep loan_amount_borrower_c_w tuitionall_c_w grad_rate_150_p_w ///
-grad_rate_150_p2yr_w grad_rate_150_p4yr_w selective iclevel online ///
-chain all_under_w dist_black_share_w dist_white_share_w ///
-dist_hisp_share_w fed_grant_pct_w dist_pell_s year owner_pe ///
-pctchrtgrbkaat_w pctchrtgrwhitt_w pctchrtgrhispt_w ///
-pct2yrchrtgrbkaat_w pct2yrchrtgrhispt_w pct2yrchrtgrwhitt_w ///
-pct4yrchrtgrbkaat_w pct4yrchrtgrhispt_w pct4yrchrtgrwhitt_w ///
-peswitcherall poswitcherall poswitchsystemall peswitchsystemall ///
-systemid inst_name_new systemnm systemid peacqu poacqu ///
-investevent IPO unitid year state_n idx_sfa idx_gr pe_ind po_ind ///
-not_pe_po grtotltchrt4yr grtotltchrt2yr grtotltallgradchrt
-
-outsheet using "/Users/Charlie/Google Drive/2018-2012HigherEdFinancialization/Papers/Proprietary College Financialization/Paper/SER/Replication/agilepredatorsdata20191116.csv", replace
-
-save "/Users/Charlie/Google Drive/replicationdata/agilepredatorsreplication20191115", replace
-
-label var "
+*Agile predators table 1 descriptives
+clear all
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
 label var loan_amount_borrower_c_w "Loan per borrower (2015$)"
 label var tuitionall_c_w "Tuition (2015$)"
