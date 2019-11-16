@@ -1,11 +1,22 @@
 
 *Agile Predators Figure 4
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
+clear all
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
+
+label define iclevel 1 "Four or more years" 2 "At least 2 but less than 4 years"
+label define owner_pe 1 "Private equity" 2 "Publicly traded" 3 "Privately held" 4 "Non-profit" 5 "State" 6 "Community"
+rename iclevel iclevel_s
+encode iclevel_s, gen(iclevel) label(iclevel)
+rename state_n state_s
+encode state_s, gen(state_n)
+rename owner_pe owner_pe_s
+encode owner_pe_s, gen(owner_pe) label(owner_pe)
 
 foreach var in loan_thousands {
 foreach o in pe po {
-use "/Users/Charlie/Google Drive/replicationdata/agilepredatorsreplication20191115", clear
+use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
 gen loan_thousands = loan_amount_borrower_c_w / 1000
+label var loan_thousands "Average loan in thousands (2015$)"
 sort unitid year
 
 by unitid: gen switch=year-1 if `o'_ind==1&not_pe_po[_n-1]==1&unitid==unitid[_n-1]&`var'~=.&`var'[_n-1]~=.
@@ -59,7 +70,7 @@ label var grad_rate_150_p_w "Graduation rate"
 */
 foreach var in grad_rate_150_p_w {
 foreach o in pe po {
-use "/Users/Charlie/Google Drive/replicationdata/agilepredatorsreplication20191115", clear
+use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
 drop if grad_rate_150_p_w==.
 label var grad_rate_150_p_w "Graduation rate"
 sort unitid year

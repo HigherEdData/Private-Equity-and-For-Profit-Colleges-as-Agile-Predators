@@ -1,11 +1,16 @@
 
 *Agile Predators Table A3
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
+clear all
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
-use "/Users/Charlie/Google Drive/replicationdata/agilepredatorsreplication20191115", clear
-
-
-est clear
+label define iclevel 1 "Four or more years" 2 "At least 2 but less than 4 years"
+label define owner_pe 1 "Private equity" 2 "Publicly traded" 3 "Privately held" 4 "Non-profit" 5 "State" 6 "Community"
+rename iclevel iclevel_s
+encode iclevel_s, gen(iclevel) label(iclevel)
+rename state_n state_s
+encode state_s, gen(state_n)
+rename owner_pe owner_pe_s
+encode owner_pe_s, gen(owner_pe) label(owner_pe)
 
 xtset unitid year
 
@@ -48,11 +53,11 @@ esttab est4 est5 est6  ///
 using "gradpefixedeffects.csv", cells(b(star fmt(3)) se(fmt(3))) stardetach  ///
 	legend label varlabels(_cons Constant)  stats(N N_g, fmt(3 0 0) ///
 	label(R-square Institution-years Institutions)) starlevels(^ .1 * .05 ** .01 *** .001) ///
-	keep (peswitcherall chain online under_thousands grad_chrt_thousands) replace
+	keep (peswitcherall chain online grad_chrt_thousands) replace
 
 esttab est10 est11 est12 ///
 using "gradpofixedeffects.csv", cells(b(star fmt(3)) se(fmt(3))) stardetach  ///
 	legend label varlabels(_cons Constant)  stats(r2_w N N_g, fmt(3 0 0) ///
 	label(R-square Institution-years Institutions)) starlevels(* .05 ** .01 *** .001) ///
-	keep (poswitcherall chain online under_thousands grad_chrt_thousands) replace
+	keep (poswitcherall chain online grad_chrt_thousands) replace
 	

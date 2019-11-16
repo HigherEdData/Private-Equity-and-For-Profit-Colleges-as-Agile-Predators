@@ -1,6 +1,15 @@
 
 *Agile Predators Figure 3
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
+
+label define iclevel 1 "Four or more years" 2 "At least 2 but less than 4 years"
+label define owner_pe 1 "Private equity" 2 "Publicly traded" 3 "Privately held" 4 "Non-profit" 5 "State" 6 "Community"
+rename iclevel iclevel_s
+encode iclevel_s, gen(iclevel) label(iclevel)
+rename state_n state_s
+encode state_s, gen(state_n)
+rename owner_pe owner_pe_s
+encode owner_pe_s, gen(owner_pe) label(owner_pe)
 
 xi i.state_n*year
 
@@ -28,15 +37,13 @@ title(Graduation rate) ytitle("") xtitle("") scheme(plotplain) xlabel(.3(.1).6) 
 name(adjusted_grad_rate, replace)
 
 *Panel 3
-by unitid: egen switchever=max(peswitcherall)
-by unitid: egen poswitchever=max(poswitcherall)
+bysort unitid: egen switchever=max(peswitcherall)
+bysort unitid: egen poswitchever=max(poswitcherall)
 
 est clear
 gen owner_pe_switch=owner_pe
 replace owner_pe_switch=10 if owner_pe==2 & switchever~=1
-*replace owner_pe_switch=9 if owner_pe==1 & switchever==1
 replace owner_pe_switch=8 if owner_pe==1 & poswitchever~=1
-*replace owner_pe_switch=7 if owner_pe==2 & poswitchever==1
 
 label define owner_pe_switch 8 "Private Equity" 10 "Publicly traded"
 
