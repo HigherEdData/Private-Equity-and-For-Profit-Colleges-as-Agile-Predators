@@ -1,6 +1,6 @@
 
 *Agile Predators Figure 1
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", clear
 
 *College panel
 table year owner_pe, c(n all_under_w)
