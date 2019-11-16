@@ -12,6 +12,7 @@ rename state_n state_s
 encode state_s, gen(state_n)
 rename owner_pe owner_pe_s
 encode owner_pe_s, gen(owner_pe) label(owner_pe)
+gen under_thousands=all_under_w/1000
 
 xtset unitid year
 
@@ -46,7 +47,7 @@ under_thousands i.iclevel i.year i.state_n*year if idx_sfa==. & idx_ef==., fe cl
 eststo est6
 
 esttab est1 est2 est3 est4 est5 est6  ///
-using "/Users/$name/Desktop/loansexcludeparentchildcontrols.csv", cells(b(star fmt(3)) se(fmt(3))) stardetach  ///
+using "loansexcludeparentchildcontrols.csv", cells(b(star fmt(3)) se(fmt(3))) stardetach  ///
 	legend label varlabels(_cons Constant)  stats(N N_g, fmt(3 0 0) ///
 	label(R-square Institution-years Institutions)) starlevels(^ .1 * .05 ** .01 *** .001) ///
 	keep (peswitcherall poswitcherall chain online under_thousands) replace
