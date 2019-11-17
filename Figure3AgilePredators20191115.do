@@ -1,5 +1,6 @@
 
 *Agile Predators Figure 3
+clear all
 insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
 label define iclevel 1 "Four or more years" 2 "At least 2 but less than 4 years"
