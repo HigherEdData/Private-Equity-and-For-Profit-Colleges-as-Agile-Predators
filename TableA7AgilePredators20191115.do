@@ -11,6 +11,7 @@ rename state_n state_s
 encode state_s, gen(state_n)
 rename owner_pe owner_pe_s
 encode owner_pe_s, gen(owner_pe) label(owner_pe)
+gen under_thousands=all_under_w/1000
 
 xtset unitid year
 
