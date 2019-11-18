@@ -3,6 +3,15 @@
 clear all
 insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
+label define iclevel 1 "Four or more years" 2 "At least 2 but less than 4 years"
+label define owner_pe 1 "Private equity" 2 "Publicly traded" 3 "Privately held" 4 "Non-profit" 5 "State" 6 "Community"
+rename iclevel iclevel_s
+encode iclevel_s, gen(iclevel) label(iclevel)
+rename state_n state_s
+encode state_s, gen(state_n)
+rename owner_pe owner_pe_s
+encode owner_pe_s, gen(owner_pe) label(owner_pe)
+
 label var loan_amount_borrower_c_w "Loan per borrower (2015$)"
 label var tuitionall_c_w "Tuition (2015$)"
 label var grad_rate_150_p_w "Graduation rate*"
@@ -29,7 +38,7 @@ tabstat loan_amount_borrower_c_w tuitionall_c_w grad_rate_150_p_w ///
 grad_rate_150_p2yr_w grad_rate_150_p4yr_w selective iclevel online ///
 chain all_under_w dist_black_share_w dist_white_share_w ///
 dist_hisp_share_w fed_grant_pct_w dist_pell_s, ///
-sd(mean) by(owner_pe) 
+s(sd) by(owner_pe) 
 
 est clear
 levelsof owner_pe, loc(levs)
