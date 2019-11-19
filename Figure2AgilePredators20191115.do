@@ -1,6 +1,7 @@
 
 *Figure 2 Agile Predators
-use "https://drive.google.com/uc?authuser=0&id=1GTIbi9C8ftL3a7mAg57vBSo21wLE1x87&export=download", clear
+clear all
+insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
 tabstat peacqu poacqu, s(n) by(year)
 
@@ -8,7 +9,7 @@ tabstat peacqu poacqu, s(n) by(year)
 tabstat peacqu if investevent==1, s(n) by(year)
 
 *Ownership changes via chain acquisitions
-tabstat poacqu if IPO==year, s(n) by(year)
+tabstat poacqu if ipo==year, s(n) by(year)
 
 *Acquisitions of non-profits
 tabstat peacqu poacqu if owner_pe[_n-1]~=3, s(n) by(year)

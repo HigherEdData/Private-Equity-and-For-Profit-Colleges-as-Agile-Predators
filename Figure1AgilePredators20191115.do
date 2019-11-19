@@ -1,5 +1,6 @@
 
 *Agile Predators Figure 1
+clear all
 insheet using "https://raw.githubusercontent.com/charlieeatonphd/agilepredators/master/agilepredatorsdata20191116.csv", comma clear
 
 *College panel
